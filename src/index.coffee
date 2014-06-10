@@ -2,6 +2,11 @@ request = require 'request'
 _ = require 'highland'
 JSONStream = require 'JSONStream'
 
+request = request.defaults
+    headers:
+        accept: 'application/vnd.github.manifold-preview'
+        'user-agent': 'grs-releases/' + require('../package.json').version
+
 module.exports = (options)->
 
     ###*
@@ -13,11 +18,6 @@ module.exports = (options)->
     for option in ['repo', 'tag', 'name']
         if !options || !options[option]
             throw new Error("Miss option #{option}")
-
-    request = request.defaults
-        headers:
-            accept: 'application/vnd.github.manifold-preview'
-            'user-agent': 'grs-releases/' + require('../package.json').version
 
     stream = _(request("https://api.github.com/repos/#{options.repo}/releases")
     .pipe(JSONStream.parse('*')))
