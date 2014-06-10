@@ -45,7 +45,7 @@ gulp.task('mocha', ['coffee'], function() {
         }));
 });
 
-gulp.task('watch', function() {
+gulp.task('watch', ['coffee'], function() {
     gulp.watch(src, ['coffee']);
 });
 

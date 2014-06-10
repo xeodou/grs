@@ -1,7 +1,7 @@
 {
-  "name": "cpt",
-  "version": "0.0.1",
-  "description": "A template for npm module use coffee script",
+  "name": "grs",
+  "version": "0.1.0",
+  "description": "github releases stream module.",
   "main": "index.js",
   "scripts": {
     "test": "gulp mocha"
@@ -20,5 +20,10 @@
     "gulp-util": "^2.2.14",
     "gulp-mocha": "^0.4.1",
     "should": "^3.3.1"
+  },
+  "dependencies": {
+    "highland": "^1.25.4",
+    "request": "^2.36.0",
+    "JSONStream": "^0.8.2"
   }
 }

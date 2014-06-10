@@ -1,34 +1,32 @@
-# CPT
+# GRS
 
-> A template for npm module use coffee script
+> A github releases stream module
 
 ## Getting Started
 
-### First
-Install `gulp`.
-If you haven't use `Gulp` , I think you should use it to save your short life.
-To install `gulp` you can have a look at this repo https://github.com/gulpjs/gulp or just use this command:
+Install via [npm](http://npmjs.org/grs)
 
 ```shell
-    npm i -g gulp
-```
-
-### Second
-Clone this repo:
-
-```shell
-    git clone git@github.com:xeodou/CPT.git
+   npm i grs --save
 ```
 
 ## Usage
 
-### Compile Coffee Script
+```Javascript
+var grs = require('grs');
 
-Use `gulp coffee` transfer coffeescript to javascript.
+grs({
+    repo: 'kbhomes/radiant-player-mac',
+    tag: 'v1.1.3',
+    name: 'Radiant.Player.zip'
+}).pipe(dist);
+```
 
-### Test
+grs is a readable and writeable stream object.
 
-Use `gulp mocha` to test your code with mocha.
+## Test
+
+Use `gulp mocha` to test the module.
 
 
 
