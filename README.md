@@ -24,11 +24,9 @@ grs({
 
 grs is a readable and writeable stream object.
 
-## Test
-
-Use `gulp mocha` to test the module.
-
-
+### Event
+* `error` If some thing will emit an error event.
+* `size` If get the right package info will emit a size event describe the size of the package.
 
 
 ## License

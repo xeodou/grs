@@ -19,12 +19,11 @@ module.exports = (options)->
             accept: 'application/vnd.github.manifold-preview'
             'user-agent': 'grs-releases/' + require('../package.json').version
 
-    steam = request("https://api.github.com/repos/#{options.repo}/releases")
-    .pipe(JSONStream.parse('*'))
-    _(steam)
+    stream = _(request("https://api.github.com/repos/#{options.repo}/releases")
+    .pipe(JSONStream.parse('*')))
     .map (res)->
         if typeof res is 'string'
-            throw new Error("#{options.repo} #{options.tag} #{options.name} " + res)
+            stream.emit 'error', new Error("#{options.repo} #{options.tag} #{options.name} " + res)
         else res
     .find (release)->
         return release.tag_name is options.tag
@@ -32,7 +31,7 @@ module.exports = (options)->
         return release.assets
     .flatten().find (asset)->
         return asset.name  is options.name
-    .map (asset)->
-        return "https://github.com/#{options.repo}/releases/download/#{options.tag}/#{asset.name}"
-    .flatMap (uri) ->
+    .flatMap (asset)->
+        uri = "https://github.com/#{options.repo}/releases/download/#{options.tag}/#{asset.name}"
+        stream.emit 'size', asset.size
         return _(request(uri))
