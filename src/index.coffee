@@ -25,11 +25,11 @@ module.exports = (options)->
         if typeof res is 'string'
             stream.emit 'error', new Error("#{options.repo} #{options.tag} #{options.name} " + res)
         else res
-    .find (release)->
-        return release.tag_name is options.tag
-    .flatten().map (release)->
+    .where ({tag_name: options.tag})
+    .map (release)->
         return release.assets
-    .flatten().find (asset)->
+    .flatten()
+    .find (asset)->
         return asset.name  is options.name
     .flatMap (asset)->
         uri = "https://github.com/#{options.repo}/releases/download/#{options.tag}/#{asset.name}"

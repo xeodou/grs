@@ -9,10 +9,15 @@
   "keywords": [
     "github",
     "coffee",
-    "bootstrap"
+    "github-release",
+    "stream"
   ],
   "author": "xeodou@gmail.com",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:xeodou/grs.git"
+  },
   "devDependencies": {
     "gulp": "^3.6.2",
     "gulp-coffee": "^1.4.3",
