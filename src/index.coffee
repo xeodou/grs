@@ -18,8 +18,8 @@ module.exports = (options)->
     for option in ['repo', 'tag', 'name']
         if !options || !options[option]
             throw new Error("Miss option #{option}")
-
-    stream = _(request("https://api.github.com/repos/#{options.repo}/releases")
+    token = if options.token then "?access_token=" + options.token else ""
+    stream = _(request("https://api.github.com/repos/#{options.repo}/releases#{token}")
     .pipe(JSONStream.parse('*')))
     .map (res)->
         if typeof res is 'string'
