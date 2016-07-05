@@ -15,11 +15,13 @@ module.exports = (options)->
      * options.name
     ###
 
+    baseRequest = request.defaults(options.requestOptions)
+
     for option in ['repo', 'tag', 'name']
         if !options || !options[option]
             throw new Error("Miss option #{option}")
     token = if options.token then "?access_token=" + options.token else ""
-    stream = _(request("https://api.github.com/repos/#{options.repo}/releases#{token}")
+    stream = _(baseRequest("https://api.github.com/repos/#{options.repo}/releases#{token}")
     .pipe(JSONStream.parse('*')))
     .map (res)->
         if typeof res is 'string'
@@ -34,4 +36,4 @@ module.exports = (options)->
     .flatMap (asset)->
         uri = "https://github.com/#{options.repo}/releases/download/#{options.tag}/#{asset.name}"
         stream.emit 'size', asset.size
-        return _(request(uri))
+        return _(baseRequest(uri))
